@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace ParseService.Parsers.SeverstalLogoUsingParser
+﻿namespace ParseService.Parsers
 {
-	public class SiteWithLogo
+	public class Site
 	{
 		public string Title
 		{

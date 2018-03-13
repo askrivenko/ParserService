@@ -11,7 +11,7 @@ namespace ParseService
 	{
 		static void Main(string[] args)
 		{
-			var result = new SeverstalLogoUsingParser().ParseAsync().Result;
+			var result = new SeverstalLogoUsingParser().ParseAsync();
 
 			Console.ReadKey();
 		}

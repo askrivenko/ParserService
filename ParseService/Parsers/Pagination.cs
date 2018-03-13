@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PommaLabs.Thrower;
 
 namespace ParseService.Parsers
 {
@@ -11,6 +12,9 @@ namespace ParseService.Parsers
 	/// </summary>
 	public abstract class PaginationSettings
 	{
+
+		private int _startPage;
+		private int _endPage;
 		/// <summary>
 		/// Возвращает или устанавливает начальную страницу для разбора.
 		/// </summary>
@@ -19,8 +23,17 @@ namespace ParseService.Parsers
 		/// </value>
 		public int StartPage
 		{
-			get;
-			set;
+			get
+			{
+				return _startPage;
+			}
+
+			set
+			{
+				Raise.ArgumentException.If( value <= 1, nameof(StartPage), "Номер начальной страницы для разбора должен должен быть больше 1!");
+				Raise.ArgumentException.If(EndPage + StartPage != 0 && value >= EndPage, nameof(StartPage), "Номер начальной страницы для разбора не должен превышать, или быть равным номеру конечной страницы!");
+				_startPage = value;
+			}
 		}
 
 		/// <summary>
@@ -31,8 +44,18 @@ namespace ParseService.Parsers
 		/// </value>
 		public int EndPage
 		{
-			get;
-			set;
+			get
+			{
+				return _endPage;
+			}
+
+			set
+			{
+				
+				Raise.ArgumentException.If(EndPage + StartPage != 0 && value <= StartPage, nameof(EndPage),
+											   "Номер конечной страницы для разбора не должен быть меньше, или равным номеру начальной страницы!");
+				_endPage = value;
+			}
 		}
 	}
 }
