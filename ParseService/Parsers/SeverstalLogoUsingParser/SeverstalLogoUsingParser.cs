@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 
 namespace ParseService.Parsers.SeverstalLogoUsingParser
@@ -62,7 +63,11 @@ namespace ParseService.Parsers.SeverstalLogoUsingParser
 		public async Task<IEnumerable<Site>> ParseAsync()
 		{
 			var sites = new List<Site>();
-			var browser = new ChromeDriver();
+
+			var options = new ChromeOptions();
+			options.AddArguments(new List<string>() { "headless" });
+			var browser = new ChromeDriver(options);
+
 			try
 			{
 				foreach (var imageUrl in _corporateLogosLink)
